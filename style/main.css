@@ -2,7 +2,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;700&display=swap");
 
 * {
-    box-sizing: border-box;
     scroll-behavior: smooth;
 }
 
@@ -17,6 +16,7 @@ section {
 }
 
 h1, p {
+    color: white;
     margin: 0;
 }
 
@@ -33,3 +33,28 @@ footer {
     padding: 100px;
 }
 
+#home {
+    background-image: url("../resources/home-bg.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#home .content {
+    max-width: 650px;
+    padding-left: 10vh;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+#home .content .title {
+    font-size: 100px;
+    font-style: italic;
+}
+
+#home .content .subtitle {
+    font-size: 40px;
+}

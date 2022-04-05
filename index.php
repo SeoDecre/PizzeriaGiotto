@@ -1,5 +1,3 @@
-<?php echo 'PHP version: ' . phpversion(); ?>
-
 <html lang="en">
     <head>
         <meta charset="UTF-8">
@@ -10,9 +8,10 @@
     <body>
         <!-- Home section -->
         <section id="home">
-            <div class="container">
+            <div class="content">
                 <h1 class="title">GIOTTO'S<br>PIZZERIA</h1>
-                <p>The rounded pizza on the market</p>
+                <p class="subtitle">The roundest pizza on the market</p>
+                <p><?php echo 'PHP version: ' . phpversion(); ?></p>
                 <a href="order.php" class="button"></a>
             </div>
         </section>

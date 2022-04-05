@@ -21,6 +21,21 @@
             <div class="container">
                 <!-- Grid -->
                 <p>MENU</p>
+                <?php
+                include_once ('pizzaMenu.php');
+
+                $result = getPizzaMenu();
+
+                while ($pizza = $result->fetch_row()){
+                    echo "<div class=\"pizza\" > 
+                            <p> $pizza[1] </p>                          <!-- pizza name --> 
+                            <p> $pizza[2] </p>                          <!-- pizza description --> 
+                            <p> $pizza[3] </p>                          <!-- pizza price-->
+                            </div> <br>";
+                }
+                ?>
+
+
             </div>
         </section>
 

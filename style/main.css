@@ -9,6 +9,7 @@ body {
     margin: 0;
     padding: 0;
     font-family: "Rubik", sans-serif;
+    background-color: black;
 }
 
 section {
@@ -22,7 +23,7 @@ h1, p {
 
 a {
     text-decoration: none;
-    color: #fff;
+    color: black;
 }
 
 footer {
@@ -57,4 +58,8 @@ footer {
 
 #home .content .subtitle {
     font-size: 40px;
+}
+
+.asterisk{
+    color: red;
 }

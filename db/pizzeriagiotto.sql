@@ -3,14 +3,14 @@ CREATE DATABASE IF NOT EXISTS Pizzeria;
 USE Pizzeria;
 
 CREATE TABLE Users (
-    id INT,
+    id INT AUTO_INCREMENT ,
     name VARCHAR(30),
     surname VARCHAR(30),
     tel CHAR(10),
     mail VARCHAR(320),
     password VARCHAR(30),
     PRIMARY KEY (id)
-);
+)AUTO_INCREMENT=1;
 
 CREATE TABLE Orders (
     id INT,
@@ -40,16 +40,16 @@ CREATE TABLE Orders_Products (
     FOREIGN KEY (FK_products) REFERENCES Products(id)
 );
 
-INSERT INTO Users (id, name, surname, tel, mail, password) VALUES
-(124, "Gino", "Rossi", "3242344324", "ginorossi95@gmail.com", "abcd1234"),
-(125, "Pietro", "Verdi", "2142451422", "pietroverdi@gmail.com", "abcd1234"),
-(126, "Fabio", "Bianchi", "4214541234", "fabiobianchi@gmail.com", "abcd1234");
+INSERT INTO Users (name, surname, tel, mail, password) VALUES
+("Gino", "Rossi", "3242344324", "ginorossi95@gmail.com", "abcd1234"),
+("Pietro", "Verdi", "2142451422", "pietroverdi@gmail.com", "abcd1234"),
+("Fabio", "Bianchi", "4214541234", "fabiobianchi@gmail.com", "abcd1234");
 
 INSERT INTO Orders (id, amount, time, delivery_address, status, payment_type, FK_users) VALUES
-(0, 30.50, "2020-01-01 15:10:10", "via Roma 65, Livorno", "arrived", "online", 124),
-(1, 20.50, "2020-01-01 15:10:10", "via Rossi 65, Firenze", "delivering", "cash", 125),
-(2, 1.00, "2020-01-01 15:10:10", "via Roma 65, Livorno", "delivering", "cash", 124),
-(3, 10.00, "2020-01-01 15:10:10", "via Verdi 65, Pisa", "arrived", "online", 126);
+(0, 30.50, "2020-01-01 15:10:10", "via Roma 65, Livorno", "arrived", "online", 1),
+(1, 20.50, "2020-01-01 15:10:10", "via Rossi 65, Firenze", "delivering", "cash", 1),
+(2, 1.00, "2020-01-01 15:10:10", "via Roma 65, Livorno", "delivering", "cash", 1),
+(3, 10.00, "2020-01-01 15:10:10", "via Verdi 65, Pisa", "arrived", "online", 2);
 
 INSERT INTO Products (id, name, description, price) VALUES
 (11, "Pizza margherita", "Buona", 10.00),

@@ -79,39 +79,35 @@ else {
     </head>
     <body>
     <?php
-
-    $user = array(
-                    'name'=> $_POST['name'],
-                    'surname'=> $_POST['surname'],
-                    'phone'=> $_POST['phone'],
-                    'email'=> $_POST['user_email'],
-                    'password'=> $_POST['password']
-                    );
-
-        $cryptedPassw = crypt($user['password'], 0); // cifratura della  password
+        $name= $_POST['name'];
+        $surname= $_POST['surname'];
+        $phone= $_POST['phone'];
+        $email= $_POST['user_email'];
+        $cryptedPassw = crypt($_POST['password'],1); // cifratura della  password
 
         $connection = new mysqli ( "localhost","root","","Pizzeria");
 
 
         //check if user already exist
-        $query = "SELECT * FROM Users WHERE name = {$user['name']}";
+        $query = "SELECT * FROM Users WHERE name = '$name'";
         $result = $connection->query($query);
 
         if ($result!==false && $result->num_rows > 0)
-            echo " L'sutente {$user['name']} &egrave; gi&agrave;presente nel database.";
+            echo " L'utente $name &egrave; gi&agrave;presente nel database.";
         else {
 
 
-            $query = "INSERT INTO Users (name, surname, tel, mail, password) VALUES
-                                                              ({$user['name']}, {$user['surname']}, {$user['phone']},{$user['email']},{$user['password']})";
+            $query = "INSERT INTO Users (name, surname, tel, mail, password) VALUES('$name','$surname','$phone','$email','$cryptedPassw')";
 
             $connection->query($query);
-            echo " L'utente {$user['name']} &egrave; stato aggiunto al database.";
+
+            //it's needed a css and a html structure that can contain correctly the messages
+            echo " L'utente $name &egrave; stato aggiunto al database.";
         }
-        /*
+
         $result->close();
         $connection->close();
-        */
+
     ?>
     </body>
     </html>

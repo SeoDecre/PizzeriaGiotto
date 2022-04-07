@@ -29,6 +29,7 @@ CREATE TABLE Products (
     name VARCHAR(40),
     description VARCHAR(50),
     price DOUBLE,
+    img_dir VARCHAR(30),
     PRIMARY KEY (id)
 );
 
@@ -51,12 +52,12 @@ INSERT INTO Orders (id, amount, time, delivery_address, status, payment_type, FK
 (2, 1.00, "2020-01-01 15:10:10", "via Roma 65, Livorno", "delivering", "cash", 1),
 (3, 10.00, "2020-01-01 15:10:10", "via Verdi 65, Pisa", "arrived", "online", 2);
 
-INSERT INTO Products (id, name, description, price) VALUES
-(11, "Pizza margherita", "Buona", 10.00),
-(22, "Pizza diavola", "Piccante", 7.00),
-(33, "Pizza mascarpone", "Buonina", 6.00),
-(44, "Pizza crudo e mozzarella", "Buona sgravata", 15.00),
-(55, "Acqua", "Bagnata", 1.00);
+INSERT INTO Products (id, name, description, price,img_dir) VALUES
+(11, "Pizza margherita", "Buona", 10.00,"resources/margherita.jpg"),
+(22, "Pizza diavola", "Piccante", 7.00,"resources/diavola.jpg"),
+(33, "Pizza mascarpone", "Buonina", 6.00,"resources/mascarpone.jpg"),
+(44, "Calzone", "Dani down", 15.00,"resources/calzone.jpg"),
+(55, "Acqua", "Bagnata", 1.00,"resources/diavola.jpg");
 
 INSERT INTO Orders_Products (FK_orders, FK_products) VALUES
 (0, 11),

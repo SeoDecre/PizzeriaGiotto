@@ -64,10 +64,18 @@ footer {
     color: red;
 }
 
-/* 'order.php'file elements style*/
+.pizza-scroller{
+    display: grid;
+    grid-auto-flow: column;
+}
+.product-img{
+    width: 10%;
+}
 
+/* order.php elements style */
 
 .pizza-menu-img{
     float: left;
-    /*padding: ...*/
+    margin-right: 10px;
 }
+

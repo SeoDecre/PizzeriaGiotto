@@ -63,3 +63,11 @@ footer {
 .asterisk{
     color: red;
 }
+
+/* 'order.php'file elements style*/
+
+
+.pizza-menu-img{
+    float: left;
+    /*padding: ...*/
+}

@@ -103,6 +103,8 @@ else {
 
             //it's needed a css and a html structure that can contain correctly the messages
             echo " L'utente $name &egrave; stato aggiunto al database.";
+            header("location: order.php");
+
         }
 
         $result->close();

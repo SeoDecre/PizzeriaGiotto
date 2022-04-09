@@ -1,8 +1,4 @@
 <?php
-if (!isset($_POST['user_email']) || !isset($_POST['password']));
-?>
-
-<?php
 
     //$_SESSION['connection']
     ?>

@@ -1,62 +1,49 @@
 <?php
-
 session_start();
 
-//stabilisce la connessione con il DB "sql103.epizy.com","epiz_31487448","wScbLHkHAx","epiz_31487448_pizzeria"
+// Estabilishing a connection with the DB "sql103.epizy.com", "epiz_31487448", "wScbLHkHAx", "epiz_31487448_pizzeria"
 $connection = new mysqli ("localhost", "root", "", "Pizzeria");
 
-//usato per il controllo delle REGISTRAZIONI
-if (isset($_POST['name']) && isset($_POST['surname']) && isset($_POST['phone']) &&
-isset($_POST['user_email']) && isset($_POST['password'])) {
-    // controlla che la registrazione è andata a buon fine all'interno del DB
+if (isset($_POST['name']) && isset($_POST['surname']) && isset($_POST['phone']) && isset($_POST['user_email']) && isset($_POST['password'])) { // Registration check
+    // Checking for DB registration errors
     $name = $_POST['name'];
     $surname = $_POST['surname'];
     $phone = $_POST['phone'];
     $email = $_POST['user_email'];
-    $passw = $_POST['password']; // cifratura della  password
+    $passw = $_POST['password']; // Password encryption
 
-    //check if user already exist
+    // Checking if user already exists
     $query = "SELECT * FROM Users WHERE mail = '$email'";
     $result = $connection->query($query);
 
-    if ($result !== false && $result->num_rows > 0)
-        echo " L'utente $name &egrave; gi&agrave;presente nel database.";
-    else {
+    if ($result !== false && $result->num_rows > 0) {
+        $_POST = [];
+        echo '<script type="text/javascript"> alert("User already exists"); window.location.href = "index.php";</script>';
+    } else {
         $query = "INSERT INTO Users (name, surname, tel, mail, password) VALUES('$name','$surname','$phone','$email','$passw')";
         $connection->query($query);
-
-        //it's needed a css and a html structure that can contain correctly the messages
-        header("location: order.php"); //redirecting to 'order' file
-        echo '<script type="text/javascript"> alert("User has been registered!");
-                    window.location.href = "order.php";
-                   </script>';
+        echo '<script type="text/javascript"> alert("User has been registered!"); window.location.href = "order.php";</script>';
     }
 
     $result->close();
     $connection->close();
-} // usato per il controllo dei login
-elseif (isset($_POST['user_email']) && isset($_POST['password'])) {
-    //check if user not exists
+} elseif (isset($_POST['user_email']) && isset($_POST['password'])) {  // Login check
+    // Checking if user already exists
     $query = "SELECT * FROM Users WHERE mail = '{$_POST['user_email']}'";
-    //salva il risultato della query
+    // Query result saving
     $result = $connection->query($query);
-
-    // crea un array contentente tutti gli elementi di una riga associati per colonna
+    // Array containing all the elements of the tupla
     $result = $result->fetch_assoc();
 
-    //controlla se l'utente è presente o meno nel DB
+    // Checking for user presence in DB
     if (isset($result['mail'])) {
         if (strcmp($_POST['password'], $result['password']) == 0) {
-            header("location: order.php"); //redirecting to 'order' file
+            header("location: order.php"); // Redirecting to 'order' file
         } else {
-            echo '<script type="text/javascript"> alert("Wrong password!");
-                    window.location.href = "index.php";
-                   </script>';
+            echo '<script type="text/javascript"> alert("Wrong password!"); window.location.href = "index.php";</script>';
         }
     } else {
-        echo '<script type="text/javascript"> alert("User not registered!");
-                    window.location.href = "index.php";
-                   </script>';
+        echo '<script type="text/javascript"> alert("User not registered!"); window.location.href = "index.php";</script>';
     }
 
     $_POST = array();
@@ -72,7 +59,6 @@ elseif (isset($_POST['user_email']) && isset($_POST['password'])) {
 </head>
 
 <body>
-
 <!-- prova del dialog con il form di registrazione e login utenti -->
 <div id="loginForm" style="visibility: hidden">
     <dialog class="dialog" open>
@@ -206,12 +192,8 @@ elseif (isset($_POST['user_email']) && isset($_POST['password'])) {
 
 <!-- Footer -->
 <footer id="footer">
-    <h2><a href="">Contact us</a></h2>
-    <p>Terms of service</p>
-    <p>Privacy policy</p>
-    <p>Giotto's Pizza &copy;<script> document.write(new Date().getFullYear()) </script>
-        All rights reserved.
-    </p>
+    <h2><a href="">Giotto's Pizzeria</a></h2>
+    <p>&copy;<script> document.write(new Date().getFullYear()) </script> All rights reserved.</p>
 </footer>
 
 <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>

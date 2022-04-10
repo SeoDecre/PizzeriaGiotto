@@ -1,6 +1,6 @@
-DROP DATABASE IF EXISTS Pizzeria;
-CREATE DATABASE IF NOT EXISTS Pizzeria;
-USE Pizzeria;
+DROP DATABASE IF EXISTS PizzeriaGiotto;
+CREATE DATABASE IF NOT EXISTS PizzeriaGiotto;
+USE PizzeriaGiotto;
 
 CREATE TABLE Users (
     id INT AUTO_INCREMENT ,
@@ -29,7 +29,7 @@ CREATE TABLE Products (
     name VARCHAR(40),
     description VARCHAR(50),
     price DOUBLE,
-    img_dir VARCHAR(30),
+    img_dir VARCHAR(50),
     PRIMARY KEY (id)
 );
 
@@ -53,18 +53,16 @@ INSERT INTO Orders (id, amount, time, delivery_address, status, payment_type, FK
 (3, 10.00, "2020-01-01 15:10:10", "via Verdi 65, Pisa", "arrived", "online", 2);
 
 INSERT INTO Products (id, name, description, price,img_dir) VALUES
-(11, "Pizza margherita", "Buona", 10.00,"resources/margherita.jpg"),
-(22, "Pizza diavola", "Piccante", 7.00,"resources/diavola.jpg"),
-(33, "Pizza mascarpone", "Buonina", 6.00,"resources/mascarpone.jpg"),
-(44, "Calzone", "Dani down", 15.00,"resources/calzone.jpg"),
-(55, "Acqua", "Bagnata", 1.00,"resources/diavola.jpg");
+(11, "Margherita", "Tomato, mozzarella, basil", 10.00, "resources/products/margherita.png"),
+(22, "Vesuvio", "Tomato, mozzarella, basil", 7.00, "resources/products/diavola.png"),
+(33, "Bianca", "Pomodoro, mascarpone, crudo", 6.00, "resources/products/bianca.png"),
+(44, "Maradona", "Pomodoro, mozzarella, salame", 15.00, "resources/products/maradona.png");
 
 INSERT INTO Orders_Products (FK_orders, FK_products) VALUES
 (0, 11),
 (0, 22),
 (0, 33),
 (1, 11),
-(1, 55),
 (2, 22);
 
 SELECT P.name, P.description, P.price

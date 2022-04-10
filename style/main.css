@@ -1,6 +1,4 @@
-/* ------------------ Imports ------------------ */
-@import url("https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;700&display=swap");
-
+/* --------------------- Global --------------------- */
 * {
     scroll-behavior: smooth;
 }
@@ -16,66 +14,172 @@ section {
     height: 100vh;
 }
 
-h1, p {
+h2, h1, p {
     color: white;
     margin: 0;
 }
 
 a {
     text-decoration: none;
-    color: black;
+    color: #FFC37D;
+    margin: 0;
 }
 
 footer {
     height: 30vh;
     text-align: center;
-    background-color: black;
     color: white;
     padding: 100px;
 }
 
+.title {
+    font-family: "Sexy Queen", serif;
+    font-size: 28vh;
+    font-style: italic;
+    text-align: center;
+    text-shadow: 0 5px 20px #000000;
+}
+
+.small-text {
+    font-family: "Rubik", serif;
+    font-weight: 200;
+    font-size: 2.8vh;
+}
+
+.medium-text {
+    text-align: center;
+    font-family: "Rubik", serif;
+    font-size: 6vh;
+}
+
+.asterisk {
+    color: red;
+}
+
+.button {
+    color: black;
+    font-size: 40px;
+    font-weight: bold;
+    font-family: "Rubik", serif;
+    background: #FFC37D;
+    padding: 10px 40px;
+    border-radius: 15px;
+    border: 0;
+    box-shadow: 0 5px 10px #000000;
+    cursor: pointer;
+    transition: all 0.5s;
+}
+
+.button:hover {
+    background: #ff5252;
+}
+
+/* --------------------- Home --------------------- */
 #home {
-    background-image: url("../resources/home-bg.png");
+    background-image: url("../resources/home-background.png");
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
 }
 
 #home .content {
-    max-width: 650px;
-    padding-left: 10vh;
-    margin: 0;
-    position: absolute;
+    position: relative;
     top: 50%;
-    -ms-transform: translateY(-50%);
-    transform: translateY(-50%);
-}
-
-#home .content .title {
-    font-size: 100px;
-    font-style: italic;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: grid;
+    place-items: center;
 }
 
 #home .content .subtitle {
     font-size: 40px;
 }
 
-.asterisk{
-    color: red;
-}
-
-.pizza-scroller{
+.order {
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     display: grid;
-    grid-auto-flow: column;
-}
-.product-img{
-    width: 10%;
+    place-items: center;
 }
 
-/* order.php elements style */
-
-.pizza-menu-img{
-    float: left;
-    margin-right: 10px;
+/* --------------------- Menu --------------------- */
+#menu {
+    background-image: url("../resources/stone-background.png");
+    background-position: bottom;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
+#menu .content {
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#menu .carousel {
+    margin-top: 200px;
+}
+
+#menu .product-container {
+    margin: 0 50px;
+    display: grid;
+    place-items: center;
+}
+
+#menu .product-img {
+    width: 400px;
+}
+
+#menu .product-name {
+    position: absolute;
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+    z-index: 100;
+    display: inline;
+    padding: 10px 15px;
+    margin-bottom: 30px;
+    background: black;
+    font-size: 3.8vh;
+}
+
+#menu .product-price {
+    margin-top: 15px;
+    font-style: italic;
+}
+
+/* --------------------- Info --------------------- */
+#info {
+    background-image: url("../resources/stone-background-flipped.png");
+    background-position: top;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#info .content {
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20vh;
+    box-sizing: border-box;
+    display: flex;
+}
+
+#info .image-container {
+}
+
+#info .content .image-container img {
+}
+
+#info .content .text-container {
+    text-align: left;
+    left: 0;
+}
+
+#info .content .title {
+    font-weight: bold;
+}

@@ -4,6 +4,8 @@ session_start();
 // Estabilishing a connection with the DB "sql103.epizy.com", "epiz_31487448", "wScbLHkHAx", "epiz_31487448_pizzeria"
 $connection = new mysqli ("localhost", "root", "", "Pizzeria");
 
+$_SESSION['connection']=$connection;
+
 if (isset($_POST['name']) && isset($_POST['surname']) && isset($_POST['phone']) && isset($_POST['user_email']) && isset($_POST['password'])) { // Registration check
     // Checking for DB registration errors
     $name = $_POST['name'];

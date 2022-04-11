@@ -2,7 +2,7 @@
 session_start();
 
 // Estabilishing a connection with the DB "sql103.epizy.com", "epiz_31487448", "wScbLHkHAx", "epiz_31487448_pizzeria"
-$connection = new mysqli ("localhost", "root", "", "Pizzeria");
+$connection = new mysqli ("localhost", "root", "", "pizzeriagiotto");
 
 $_SESSION['connection']=$connection;
 
@@ -12,7 +12,7 @@ if (isset($_POST['name']) && isset($_POST['surname']) && isset($_POST['phone']) 
     $surname = $_POST['surname'];
     $phone = $_POST['phone'];
     $email = $_POST['user_email'];
-    $passw = $_POST['password']; // Password encryption
+    $password = password_hash($_POST['password'], PASSWORD_BCRYPT); // Password encryption
 
     // Checking if user already exists
     $query = "SELECT * FROM Users WHERE mail = '$email'";
@@ -22,7 +22,7 @@ if (isset($_POST['name']) && isset($_POST['surname']) && isset($_POST['phone']) 
         $_POST = [];
         echo '<script type="text/javascript"> alert("User already exists"); window.location.href = "index.php";</script>';
     } else {
-        $query = "INSERT INTO Users (name, surname, tel, mail, password) VALUES('$name','$surname','$phone','$email','$passw')";
+        $query = "INSERT INTO Users (name, surname, tel, mail, password) VALUES('$name','$surname','$phone','$email','$password')";
         $connection->query($query);
         echo '<script type="text/javascript"> alert("User has been registered!"); window.location.href = "order.php";</script>';
     }
@@ -39,7 +39,8 @@ if (isset($_POST['name']) && isset($_POST['surname']) && isset($_POST['phone']) 
 
     // Checking for user presence in DB
     if (isset($result['mail'])) {
-        if (strcmp($_POST['password'], $result['password']) == 0) {
+        // Comparing crypted password with inserted password
+        if (password_verify($_POST['password'], $result['password'])) {
             header("location: order.php"); // Redirecting to 'order' file
         } else {
             echo '<script type="text/javascript"> alert("Wrong password!"); window.location.href = "index.php";</script>';
@@ -115,15 +116,6 @@ if (isset($_POST['name']) && isset($_POST['surname']) && isset($_POST['phone']) 
     </dialog>
 </div>
 
-<!-- The Modal -->
-<div id="myModal" class="modal">
-    <!-- Modal content -->
-    <div class="modal-content">
-        <span class="close">&times;</span>
-        <p>Some text in the Modal..</p>
-    </div>
-</div>
-
 <!-- Home section -->
 <section id="home">
     <div class="content">
@@ -138,7 +130,6 @@ if (isset($_POST['name']) && isset($_POST['surname']) && isset($_POST['phone']) 
 <section id="menu">
     <div class="content">
         <p class="medium-text">A large choice of flavors</p>
-
         <?php
         include_once('pizza_menu.php');
 
@@ -166,7 +157,7 @@ if (isset($_POST['name']) && isset($_POST['surname']) && isset($_POST['phone']) 
 <section id="info">
     <div class="content">
         <div class="image-container">
-            <img src="resources/pizzeria.png" alt="Pizzeria" align="left"/>
+            <img src="resources/pizzeria.png" alt="Pizzeria"/>
         </div>
         <div class="text-container">
             <p class="medium-text title">SINCE <span style="color: #FFC37D">1981</span></p>

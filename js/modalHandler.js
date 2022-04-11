@@ -33,3 +33,8 @@ window.onclick = function(event) {
         registerModal.style.display = "none";
     }
 }
+
+function setLoginError(errorMessage) {
+    var text = document.getElementById("login-error-text");
+    text.innerHTML = errorMessage;
+}

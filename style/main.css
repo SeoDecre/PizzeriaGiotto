@@ -1,3 +1,8 @@
+@font-face {
+    font-family: SexyQueen;
+    src: url(../resources/fonts/SexyQueen.ttf);
+}
+
 /* --------------------- Global --------------------- */
 * {
     scroll-behavior: smooth;
@@ -140,6 +145,10 @@ footer h2 {
     padding-top: 20px;
 }
 
+.error-text {
+    color: #ff5252;
+}
+
 /* --------------------- Home --------------------- */
 #home {
     background-image: url("../resources/home-background.png");
@@ -248,4 +257,61 @@ footer h2 {
 
 #info .content .title {
     font-weight: bold;
+}
+
+/* --------------------- Order --------------------- */
+#order {
+    background-image: url("../resources/stone-background.png");
+    background-position: bottom;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#order .content {
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#order .content .products-container {
+    position: fixed;
+    float: left;
+}
+
+#order .content .cart-container {
+    position: fixed;
+    float: right;
+}
+
+#order .carousel {
+    margin-top: 200px;
+}
+
+#order .product-container {
+    margin: 0 50px;
+    display: grid;
+    place-items: center;
+}
+
+#order .product-img {
+    width: 400px;
+}
+
+#order .product-name {
+    position: absolute;
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+    z-index: 100;
+    display: inline;
+    padding: 10px 15px;
+    margin-bottom: 30px;
+    background: black;
+    font-size: 3.8vh;
+}
+
+#order .product-price {
+    margin-top: 15px;
+    font-style: italic;
 }

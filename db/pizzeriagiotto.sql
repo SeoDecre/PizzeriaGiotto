@@ -54,7 +54,7 @@ INSERT INTO Orders (id, amount, time, delivery_address, status, payment_type, FK
 
 INSERT INTO Products (id, name, description, price,img_dir) VALUES
 (11, "Margherita", "Tomato, mozzarella, basil", 10.00, "resources/products/margherita.png"),
-(22, "Vesuvio", "Tomato, mozzarella, basil", 7.00, "resources/products/diavola.png"),
+(22, "Vesuvio", "Tomato, mozzarella, basil", 7.00, "resources/products/vesuvio.png"),
 (33, "Bianca", "Pomodoro, mascarpone, crudo", 6.00, "resources/products/bianca.png"),
 (44, "Maradona", "Pomodoro, mozzarella, salame", 15.00, "resources/products/maradona.png");
 

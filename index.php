@@ -59,78 +59,67 @@ if (isset($_POST['name']) && isset($_POST['surname']) && isset($_POST['phone']) 
 </head>
 
 <body>
-<!-- prova del dialog con il form di registrazione e login utenti -->
-<div id="loginForm" style="visibility: hidden">
-    <dialog class="dialog" open>
+<!-- Login modal -->
+<div id="login-form" class="modal">
+    <dialog open>
         <form method="post" action="index.php">
-            <label>Login</label>
-            <div>
-                <label>Email :</label>
-                <input type="email" name="user_email" placeholder="Email" required>
+            <label class="form-title">Login</label>
+            <div class="content-field">
+                <label class="form-field-name">Email:</label> <br>
+                <input class="form-input" type="email" name="user_email" required> <br>
             </div>
-            <div>
-                <label>Password :</label>
-                <input type="password" name="password" placeholder="Password" required>
+            <div class="content-field">
+                <label class="form-field-name">Password:</label> <br>
+                <input class="form-input" type="password" name="password" required> <br>
             </div>
-            <div>
-                <input type="submit" value="SIGN IN">
-                <span class="text-muted">Not a member?</span> <a onclick="document.getElementById('registerForm').style.visibility='visible';
-                        document.getElementById('loginForm').style.visibility='hidden';">Sign up</a>
+            <div class="content-field">
+                <input class="form-button button" type="submit" value="SIGN IN"> <br>
+                <span class="alternative-text">Not a member? <a id="register-linker">Sign up</a></span>
             </div>
-
         </form>
-
     </dialog>
 </div>
 
-<!-- div delle registrazioni -->
-<div id="registerForm" style="visibility: hidden">
+<!-- Registration modal -->
+<div id="register-form" class="modal login-modal">
     <dialog class="dialog" open>
         <form method="post" action="index.php">
-            <div>
-                <table>
-                    <tr>
-                        <td><strong> User Registration</strong></td>
-                    </tr>
-                    <tr>
-                        <td><strong>All Field Mark with asterisk (<span class="asterisk">*</span>) must be filled up
-                            </strong></td>
-                    </tr>
-                </table>
+            <label class="form-title">Sign up</label>
+            <div class="content-field">
+                <label class="form-field-name">Name:</label> <br>
+                <input class="form-input" type="text" name="name" required> <br>
             </div>
-            <hr>
-            <div>
-                <label>Name :</label>
-                <input type="text" name="name" placeholder="Name" required>
-                <strong class="asterisk">*</strong>
+            <div class="content-field">
+                <label class="form-field-name">Surname:</label> <br>
+                <input class="form-input" type="text" name="surname" required> <br>
             </div>
-            <div>
-                <label>Surname :</label>
-                <input type="text" name="surname" placeholder="Surname" required>
-                <strong class="asterisk">*</strong>
+            <div class="content-field">
+                <label class="form-field-name">Phone number:</label> <br>
+                <input class="form-input" type="tel" name="phone" required> <br>
             </div>
-            <div>
-                <label>Phone number :</label>
-                <input type="tel" name="phone" required>
-                <strong class="asterisk">*</strong>
+            <div class="content-field">
+                <label class="form-field-name">Email:</label> <br>
+                <input class="form-input" type="email" name="user_email" required> <br>
             </div>
-            <div>
-                <label>Email :</label>
-                <input type="email" name="user_email" required>
-                <strong class="asterisk">*</strong>
+            <div class="content-field">
+                <label class="form-field-name">Password:</label> <br>
+                <input class="form-input" type="password" name="password" required> <br>
             </div>
-            <div>
-                <label>Password :</label>
-                <input type="password" name="password" required>
-                <strong class="asterisk">*</strong>
-            </div>
-            <div>
-                <input type="submit" value="SIGN UP">
-                <a onclick="document.getElementById('registerForm').style.visibility='hidden';
-                        document.getElementById('loginForm').style.visibility='visible';">Login</a>
+            <div class="content-field">
+                <input class="form-button button" type="submit" value="SIGN UP"> <br>
+                <a class="alternative-text" id="login-linker">Login</a>
             </div>
         </form>
     </dialog>
+</div>
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+    <!-- Modal content -->
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <p>Some text in the Modal..</p>
+    </div>
 </div>
 
 <!-- Home section -->
@@ -139,7 +128,8 @@ if (isset($_POST['name']) && isset($_POST['surname']) && isset($_POST['phone']) 
         <p class="title">Giotto's Pizzeria</p>
         <p class="small-text">The roundest pizza on the market.</p>
     </div>
-    <button href="order.php" class="order button" onclick="document.getElementById('loginForm').style.visibility='visible'">ORDER</button>
+    <!-- onclick="document.getElementById('login-form').style.visibility='visible'" -->
+    <button id="order-button" class="order button">ORDER</button>
 </section>
 
 <!-- Menu section -->
@@ -197,6 +187,8 @@ if (isset($_POST['name']) && isset($_POST['surname']) && isset($_POST['phone']) 
 </footer>
 
 <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+<script src="js/modalHandler.js"></script>
+<script src="js/orderHandler.js"></script>
 </body>
 </html>
 <?php } ?>

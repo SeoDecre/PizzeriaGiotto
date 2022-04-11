@@ -1,2 +1,0 @@
-
-1. modifica il file 'connection.php' . Da sostituire con il concetto di "Sessione" ?

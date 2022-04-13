@@ -1,12 +1,15 @@
 <?php
+include_once ("connection.php");
 session_start();
 
 // Estabilishing a connection with the DB "sql103.epizy.com", "epiz_31487448", "wScbLHkHAx", "epiz_31487448_pizzeria"
 $connection = new mysqli ("localhost", "root", "", "pizzeriagiotto");
 
 $_SESSION['connection']=$connection;
+// Registration check
+if (isset($_POST['name']) && isset($_POST['surname']) && isset($_POST['phone'])
+    && isset($_POST['user_email']) && isset($_POST['password'])) {
 
-if (isset($_POST['name']) && isset($_POST['surname']) && isset($_POST['phone']) && isset($_POST['user_email']) && isset($_POST['password'])) { // Registration check
     // Checking for DB registration errors
     $name = $_POST['name'];
     $surname = $_POST['surname'];
@@ -29,14 +32,14 @@ if (isset($_POST['name']) && isset($_POST['surname']) && isset($_POST['phone']) 
 
     $result->close();
     $connection->close();
-} elseif (isset($_POST['user_email']) && isset($_POST['password'])) {  // Login check
+}
+elseif (isset($_POST['user_email']) && isset($_POST['password'])) {  // Login check
     // Checking if user already exists
     $query = "SELECT * FROM Users WHERE mail = '{$_POST['user_email']}'";
     // Query result saving
     $result = $connection->query($query);
-    // Array containing all the elements of the tupla
+    // Associtive array containing all the elements of the tupla
     $result = $result->fetch_assoc();
-
     // Checking for user presence in DB
     if (isset($result['mail'])) {
         // Comparing crypted password with inserted password
@@ -48,6 +51,8 @@ if (isset($_POST['name']) && isset($_POST['surname']) && isset($_POST['phone']) 
     } else {
         echo '<script type="text/javascript"> alert("User not registered!"); window.location.href = "index.php";</script>';
     }
+    $result->close();
+    $connection->close();
 
     $_POST = array();
 } else {
@@ -133,12 +138,7 @@ if (isset($_POST['name']) && isset($_POST['surname']) && isset($_POST['phone']) 
         <?php
         include_once('pizza_menu.php');
 
-        $result = getPizzaMenu();
-
-        if (!$result) {
-            echo 'Error: ' . mysqli_errno() . ' - ' . mysqli_error();
-        }
-
+        $result = getPizzaMenu("localhost", "root", "", "Pizzeria");
         // Horizontal scroller pizzas creation
         echo "<div class=\"carousel\" data-flickity='{\"autoplay\": true, \"freeScroll\": true, \"contain\": true, \"prevNextButtons\": false, \"pageDots\": false}'>";
         while ($pizza = $result->fetch_row()) {

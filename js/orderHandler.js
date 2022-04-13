@@ -1,23 +1,39 @@
-var counterArray;
 
-function createVar() {
-    //per ogni 2 bottoni devo avere un contatore;
-    let nButton=document.getElementsByTagName("button").length/2;
+var totalprice=0;
 
-    counterArray=Array(nButton);
-    counterArray.fill(0);
+function removeOne(idcounter){
+    // funziona solo con l'innerhtml
+    var value = parseInt(document.getElementById(idcounter).innerHTML, 10);
+    if(value>0){
+        document.getElementById(idcounter).innerHTML =parseInt(document.getElementById(idcounter).innerHTML,10)-1;
+    }
+
+    calcTotPrice(idcounter,false);
+
+}
+function addOne(idcounter){
+
+    // funziona solo con il value
+    var value = parseInt(document.getElementById(idcounter).value, 10);
+    if(isNaN(value)){
+        document.getElementById(idcounter).innerHTML = parseInt(document.getElementById(idcounter).innerHTML,10 )+1;
+
+    }
+    calcTotPrice(idcounter,true);
 }
 
-//to do
+function calcTotPrice(idcounter,operation){
+    //salva l'id della pizza
+    var pizzaId=idcounter.split("_")[0];
 
-function removeOne(id){
+    var pizza_price=parseInt(document.getElementById(pizzaId+"_price").innerHTML,10);
 
-    // richiamo il contatore per quella specifica pizza
-    //counterArray[]--
-}
-//to do
-function addOne(id){
+    if(operation){// se va aggiunta una pizza
+        totalprice+=pizza_price;
+    }else{// se va rimossa una pizza
+        totalprice-=pizza_price;
+    }
 
-    // richiamo il contatore per quella specifica pizza
-    //counterArray[]++
+    document.getElementById("total-price").innerHTML=totalprice;
+
 }

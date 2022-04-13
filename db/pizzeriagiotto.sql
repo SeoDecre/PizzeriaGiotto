@@ -1,6 +1,6 @@
-DROP DATABASE IF EXISTS PizzeriaGiotto;
-CREATE DATABASE IF NOT EXISTS PizzeriaGiotto;
-USE PizzeriaGiotto;
+DROP DATABASE IF EXISTS Pizzeria;
+CREATE DATABASE IF NOT EXISTS Pizzeria;
+USE Pizzeria;
 
 CREATE TABLE Users (
     id INT AUTO_INCREMENT ,
@@ -13,7 +13,7 @@ CREATE TABLE Users (
 )AUTO_INCREMENT=1;
 
 CREATE TABLE Orders (
-    id INT,
+    id INT AUTO_INCREMENT,
     amount DOUBLE,
     time DATETIME,
     delivery_address VARCHAR(40),
@@ -22,16 +22,16 @@ CREATE TABLE Orders (
     FK_users INT,
     PRIMARY KEY (id),
     FOREIGN KEY (FK_users) REFERENCES Users(id)
-);
+)AUTO_INCREMENT=1;
 
 CREATE TABLE Products (
-    id INT,
+    id INT AUTO_INCREMENT,
     name VARCHAR(40),
     description VARCHAR(50),
     price DOUBLE,
     img_dir VARCHAR(50),
     PRIMARY KEY (id)
-);
+) AUTO_INCREMENT=1;
 
 CREATE TABLE Orders_Products (
     FK_orders INT,

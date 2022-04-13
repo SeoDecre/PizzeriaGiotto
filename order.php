@@ -1,60 +1,12 @@
-<?php
-include_once('pizza_menu.php');
-
-// Non funziona l'aggiornamento dei counter
-session_start();
-
-$connection = $_SESSION['connection'] or die("non è presente alcuna connessione col db");
-
-if (isset($_POST['addButton'])) {
-    if (isset($_SESSION['addPizza'])) { // addPizza == counter delle singole pizze
-        $item_array_id = array_column($_SESSION["addPizza"], "item_id");
-
-        if (!in_array($_POST["id"], $item_array_id)) {
-            $count = count($_SESSION["addPizza"]);
-
-            // item array è temporaneo
-            $item_array = array(
-                'item_id' => $_GET["id"],
-                'item_price' => $_POST["price"],
-                'item_quantity' => $_POST["quantity"]
-            );
-            $_SESSION["shopping_cart"][$count] = $item_array;
-        } else {
-            //echo '<script>alert("Item Already Added")</script>';
-            $pizza = array_search($_POST["id"], $_SESSION["addPizza"]);
-            $_SESSION["addPizza"][$pizza]["item_quantity"] += 1; //incrementa la quantità della pizza
-        }
-    } else {
-        $item_array = array(
-            'item_id' => $_GET["id"], //id della pizza
-            'item_price' => $_POST["price"], // il suo corrispettivo prezzo
-            'item_quantity' => 0 //$_POST["quantity"]
-        );
-        $_SESSION["addPizza"][0] = $item_array;
-    }
-}
-
-if (isset($_GET["action"])) {
-    if ($_GET["action"] == "delete") {
-        foreach ($_SESSION["addPizza"] as $keys => $values) {
-            if ($values["item_id"] == $_GET["id"]) {
-                unset($_SESSION["addPizza"][$keys]);
-                echo '<script>alert("Item Removed")</script>';
-                echo '<script>window.location="order.php"</script>';
-            }
-        }
-    }
-}
-?>
 
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="style/main.css">
-    <script type="text/javascript" src="script/orderHandler.js"></script>
-    <title>Giotto's Pizza - Order</title>
+
+
+    <title>Pizza order </title>
 </head>
 
 <body>
@@ -66,36 +18,70 @@ if (isset($_GET["action"])) {
                 <?php
                 include_once('pizza_menu.php');
 
-                $result = getPizzaMenu();
+<div class="pizza-menu-container">
+    <?php
+    include_once ("pizza_menu.php");
 
-                if (!$result) {
-                    echo 'Error: ' . mysqli_errno() . ' - ' . mysqli_error();
-                }
+    $connection = getPizzaMenu();
+    //stampa delle pizze = ok
+    $i = 0;
+    while ($row = $connection->fetch_assoc()) {
+        // width e height sono temporanei nel tag 'img'
+        // IMPLEMENTARE i metodi 'removeOne()' e 'addOne()' nel file js
+        ?>
 
-                // Vertical products scroller
-                echo "<div class=\"carousel\" data-flickity='{\"freeScroll\": true, \"contain\": true, \"prevNextButtons\": false, \"pageDots\": false}'>";
-                while ($pizza = $result->fetch_row()) {
-                    echo "<div class=\"product-container\">
-                    <img class=\"product-img\" src=\"$pizza[4]\" alt=\"$pizza[1]\">
-                    <p class=\"product-name\">$pizza[1]</p>
-                    <p class=\"small-text product-price\">$pizza[3]€</p>
-                </div>";
-                }
-                echo "</div>";
-                ?>
-            </div>
+        <!-- codice da modificare-->
+        <div class="pizza-menu-element">
+            <img class="pizza-menu-img" src="<?php echo $row["img_dir"]; ?>"/><br>
 
-            <!-- Cart -->
-            <div id="cart-container">
-                <p>Total:</p>
-                <div>
-                    <p id="cart-amount">0€</p>
+            <div class="pizza-menu-info">
+
+                <h4 class="pizza-menu-name" name="name"><?php echo $row["name"]; ?></h4>
+
+                <h4 class="pizza-menu-descript" name="description"><?php echo $row["description"]; ?></h4>
+
+                <h4 id="price-currency">$</h4><h4 id="<?php echo $row["id"]?>_price" name="price"><?php echo $row["price"]; ?></h4>
+
+                <h4 type="text" id="<?php echo $row["id"]?>_quantity" >0</h4> <!--- quantità della pizza-->
+
+                <div class="pizza-menu-buttons">
+
+
+                    <button class="remove-button" onclick="removeOne('<?php echo $row["id"]."_quantity"; ?>')">Remove One</button>
+
+                    <button class="add-button" onclick="addOne('<?php echo $row["id"]."_quantity"; ?>')">Add One</button>
+
                 </div>
-            </div>
-        </div>
-    </section>
 
-    <button onclick="location.href='index.php'">Back to Home</button>
+            </div>
+
+
+        </div>
+
+
+        <?php
+        $i++;
+    }
+
+    ?>
+
+</div>
+
+<!-- carrello-->
+<div id="cart-total-container">
+
+</div>
+
+<form method="post" action="order.php">
+    <h4 id="total-price" name="totalPrice">0</h4>
+    <input type="button" name="order" value="ORDER"/>
+
+</form>
+
+
+<button onclick="location.href='index.php'">Back to Home</button>
 </body>
+<script type="text/javascript" src="js/orderHandler.js"></script>
+</html>
 
 </html>

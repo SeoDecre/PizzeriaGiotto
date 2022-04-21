@@ -1,9 +1,10 @@
 <?php
 include_once ("connection.php");
+include_once ("pizza_menu.php");
 session_start();
 
 // Estabilishing a connection with the DB "sql103.epizy.com", "epiz_31487448", "wScbLHkHAx", "epiz_31487448_pizzeria"
-$connection = new mysqli ("localhost", "root", "", "pizzeriagiotto");
+$connection = new mysqli ("localhost", "root", "", "pizzeria") or die("Database non trovato");
 
 $_SESSION['connection']=$connection;
 // Registration check
@@ -27,11 +28,16 @@ if (isset($_POST['name']) && isset($_POST['surname']) && isset($_POST['phone'])
     } else {
         $query = "INSERT INTO Users (name, surname, tel, mail, password) VALUES('$name','$surname','$phone','$email','$password')";
         $connection->query($query);
+
+        //richiedo l'id della persona appena registata e lo salvo nell'array "$_SESSION"
+        $_SESSION["id"]=getIdUser($connection,$name);
+
         echo '<script type="text/javascript"> alert("User has been registered!"); window.location.href = "order.php";</script>';
     }
 
     $result->close();
     $connection->close();
+
 }
 elseif (isset($_POST['user_email']) && isset($_POST['password'])) {  // Login check
     // Checking if user already exists
@@ -44,6 +50,9 @@ elseif (isset($_POST['user_email']) && isset($_POST['password'])) {  // Login ch
     if (isset($result['mail'])) {
         // Comparing crypted password with inserted password
         if (password_verify($_POST['password'], $result['password'])) {
+            //richiedo l'id della persona appena registata e lo salvo nell'array "$_SESSION"
+            $_SESSION["id"]=getIdUser($connection,$result["mail"]);
+
             header("location: order.php"); // Redirecting to 'order' file
         } else {
             echo '<script type="text/javascript"> alert("Wrong password!"); window.location.href = "index.php";</script>';

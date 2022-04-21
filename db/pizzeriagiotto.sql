@@ -8,7 +8,7 @@ CREATE TABLE Users (
     surname VARCHAR(30),
     tel CHAR(10),
     mail VARCHAR(320),
-    password VARCHAR(30),
+    password VARCHAR(60),
     PRIMARY KEY (id)
 )AUTO_INCREMENT=1;
 
@@ -46,24 +46,18 @@ INSERT INTO Users (name, surname, tel, mail, password) VALUES
 ("Pietro", "Verdi", "2142451422", "pietroverdi@gmail.com", "abcd1234"),
 ("Fabio", "Bianchi", "4214541234", "fabiobianchi@gmail.com", "abcd1234");
 
-INSERT INTO Orders (id, amount, time, delivery_address, status, payment_type, FK_users) VALUES
-(0, 30.50, "2020-01-01 15:10:10", "via Roma 65, Livorno", "arrived", "online", 1),
-(1, 20.50, "2020-01-01 15:10:10", "via Rossi 65, Firenze", "delivering", "cash", 1),
-(2, 1.00, "2020-01-01 15:10:10", "via Roma 65, Livorno", "delivering", "cash", 1),
-(3, 10.00, "2020-01-01 15:10:10", "via Verdi 65, Pisa", "arrived", "online", 2);
+INSERT INTO Orders (amount, time, delivery_address, status, payment_type, FK_users) VALUES
+(30.50, "2020-01-01 15:10:10", "via Roma 65, Livorno", "arrived", "online", 1),
+(20.50, "2020-01-01 15:10:10", "via Rossi 65, Firenze", "delivering", "cash", 1),
+(1.00, "2020-01-01 15:10:10", "via Roma 65, Livorno", "delivering", "cash", 1),
+(10.00, "2020-01-01 15:10:10", "via Verdi 65, Pisa", "arrived", "online", 2);
 
-INSERT INTO Products (id, name, description, price,img_dir) VALUES
-(11, "Margherita", "Tomato, mozzarella, basil", 10.00, "resources/products/margherita.png"),
-(22, "Vesuvio", "Tomato, mozzarella, basil", 7.00, "resources/products/vesuvio.png"),
-(33, "Bianca", "Pomodoro, mascarpone, crudo", 6.00, "resources/products/bianca.png"),
-(44, "Maradona", "Pomodoro, mozzarella, salame", 15.00, "resources/products/maradona.png");
+INSERT INTO Products (name, description, price,img_dir) VALUES
+( "Margherita", "Tomato, mozzarella, basil", 10.00, "resources/products/margherita.png"),
+( "Vesuvio", "Tomato, mozzarella, basil", 7.00, "resources/products/vesuvio.png"),
+( "Bianca", "Pomodoro, mascarpone, crudo", 6.00, "resources/products/bianca.png"),
+( "Maradona", "Pomodoro, mozzarella, salame", 15.00, "resources/products/maradona.png");
 
-INSERT INTO Orders_Products (FK_orders, FK_products) VALUES
-(0, 11),
-(0, 22),
-(0, 33),
-(1, 11),
-(2, 22);
 
 SELECT P.name, P.description, P.price
 FROM Products P

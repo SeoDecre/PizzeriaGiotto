@@ -8,7 +8,7 @@ CREATE TABLE Users (
     surname VARCHAR(30),
     tel CHAR(10),
     mail VARCHAR(320),
-    password VARCHAR(60),
+    password CHAR(60),
     PRIMARY KEY (id)
 )AUTO_INCREMENT=1;
 
@@ -36,6 +36,7 @@ CREATE TABLE Products (
 CREATE TABLE Orders_Products (
     FK_orders INT,
     FK_products INT,
+    quantity INT,
     PRIMARY KEY (FK_orders, FK_products),
     FOREIGN KEY (FK_orders) REFERENCES Orders(id),
     FOREIGN KEY (FK_products) REFERENCES Products(id)

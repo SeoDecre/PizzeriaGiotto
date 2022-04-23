@@ -1,15 +1,15 @@
 <?php
-include_once ("connection.php");
 include_once ("pizza_menu.php");
+
 session_start();
 
 // Estabilishing a connection with the DB "sql103.epizy.com", "epiz_31487448", "wScbLHkHAx", "epiz_31487448_pizzeria"
-$connection = new mysqli ("localhost", "root", "", "pizzeria") or die("Database non trovato");
+$connection = getMysqli() or die("Database non trovato");
 
-$_SESSION['connection']=$connection;
 // Registration check
 if (isset($_POST['name']) && isset($_POST['surname']) && isset($_POST['phone'])
     && isset($_POST['user_email']) && isset($_POST['password'])) {
+
 
     // Checking for DB registration errors
     $name = $_POST['name'];
@@ -40,6 +40,7 @@ if (isset($_POST['name']) && isset($_POST['surname']) && isset($_POST['phone'])
 
 }
 elseif (isset($_POST['user_email']) && isset($_POST['password'])) {  // Login check
+
     // Checking if user already exists
     $query = "SELECT * FROM Users WHERE mail = '{$_POST['user_email']}'";
     // Query result saving
@@ -145,9 +146,7 @@ elseif (isset($_POST['user_email']) && isset($_POST['password'])) {  // Login ch
     <div class="content">
         <p class="medium-text">A large choice of flavors</p>
         <?php
-        include_once('pizza_menu.php');
-
-        $result = getPizzaMenu("localhost", "root", "", "Pizzeria");
+        $result = getPizzaMenu($connection);
         // Horizontal scroller pizzas creation
         echo "<div class=\"carousel\" data-flickity='{\"autoplay\": true, \"freeScroll\": true, \"contain\": true, \"prevNextButtons\": false, \"pageDots\": false}'>";
         while ($pizza = $result->fetch_row()) {

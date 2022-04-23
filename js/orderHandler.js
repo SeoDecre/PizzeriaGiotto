@@ -44,15 +44,18 @@ function calcTotPrice(idcounter, operation) {
     //salva l'id della pizza
     var pizzaId = getPizzaId(idcounter);
 
-    let pizza_price = parseFloat(document.getElementById(pizzaId + "_price").innerHTML).toFixed(2);
+    let pizza_price = parseFloat(parseFloat(document.getElementById(pizzaId + "_price").innerHTML).toFixed(2));
 
     if (operation) {// se va aggiunta una pizza
         totalprice += pizza_price;
+        parseFloat(totalprice).toFixed(2);
     } else {// se va rimossa una pizza
+
         totalprice -= pizza_price;
+        parseFloat(totalprice).toFixed(2);
     }
 
-    document.getElementById("total-price").innerHTML = totalprice;
+    document.getElementById("total-price").innerHTML = parseFloat(totalprice).toFixed(2);
 
 }
 

@@ -42,12 +42,9 @@ $_POST = array();
         <p class="medium-text">A large choice of flavors</p>
         <?php
         $result = getMenu();
-        if (!$result) {
-            echo 'Error: ' . mysqli_errno() . ' - ' . mysqli_error();
-        }
 
         // Horizontal products scroller
-        echo "<div class=\"carousel\" data-flickity='{\"autoplay\": true, ...'>";
+        echo "<div class=\"carousel\" data-flickity='{\"autoplay\": true, \"freeScroll\": true, \"contain\": true, \"prevNextButtons\": false, \"pageDots\": false}'>";
         while ($product = $result->fetch_row()) {
             echo "<div class=\"product-container\">
                     <img class=\"product-img\" src=\"$product[4]\" alt=\"$product[1]\">

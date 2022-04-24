@@ -11,7 +11,7 @@ if (isset($_POST['name']) && isset($_POST['surname']) && isset($_POST['phone']) 
     $surname = $_POST['surname'];
     $phone = $_POST['phone'];
     $email = $_POST['email'];
-    $password = password_hash($_POST['password'], PASSWORD_BCRYPT); // Password encryption
+    $password = password_hash($_POST['password'], PASSWORD_BCRYPT); // Password hashing
 
     // Checking if user already exists
     $query = "SELECT * FROM Users WHERE email = '$email'";
@@ -21,7 +21,7 @@ if (isset($_POST['name']) && isset($_POST['surname']) && isset($_POST['phone']) 
         $_POST = [];
         $errorText = "A user with this email already exists!";
     } else {
-        $query = "INSERT INTO Users (name, surname, tel, email, password) VALUES('$name','$surname','$phone','$email','$password')";
+        $query = "INSERT INTO Users (name, surname, tel, email, password) VALUES('$name', '$surname', '$phone', '$email', '$password')";
         $connection->query($query);
         $_SESSION['id'] = $email;
         // Server should keep session data for at least 1 week

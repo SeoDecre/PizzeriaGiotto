@@ -1,13 +1,12 @@
 <?php
-// Establishing a connection towards database
-// Returns a 'mysqli' object that contains the DB connection
-function getMysqli(string $host = 'localhost', string $username = 'root',
-                   string $password = '', string $db_name = 'Pizzeria'): mysqli {
+// Establishing a connection with the DB
+function getMysqli() {
+    // Instantiation of mysqli object, it opens the connection to the DB
+    $mysqli = new mysqli('localhost', 'pizzeriagiotto', 'jdmRutwwr4e4', 'my_pizzeriagiotto');
 
-    $mysqli = new mysqli($host, $username, $password, $db_name);
-    // Output any connection error
+    // Issue any connection errors
     if ($mysqli->connect_error) {
-        die('Error : (' . $mysqli->connect_errno . ') ' . $mysqli->connect_error);
+        die('Error ' . $mysqli->connect_errno . ' - ' . $mysqli->connect_error);
     }
     return $mysqli;
 }

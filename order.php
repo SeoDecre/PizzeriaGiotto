@@ -1,11 +1,10 @@
 <?php
 include_once("connection.php");
-include_once("pizza_menu.php");
-
 session_start();
 //aggiunta di un controllo che ridirige alla pagina iniziale
 $connect = getMysqli() or die("Database non trovato");
 
+$connection = $_SESSION['connection'] or die("non è presente alcuna connessione col db");
 
 if (isset($_POST["order"])) {
 
@@ -71,98 +70,119 @@ var_dump($pizzaList);
 ?>
 
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="style/main.css">
+    <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
     <title>Pizza order </title>
 </head>
 
 <body>
+    <section id="order">
+        <div class="content">
+            <!-- Menu scroller -->
+            <div class="products-container">
+                <p class="medium-text">MAKE YOUR ORDER</p>
+                <?php
+                include_once('pizza_menu.php');
+
+                $result = getPizzaMenu();
+
+<!-- Order section -->
 <section id="order">
     <div class="content">
-        <!-- Menu scroller -->
-        <div class="products-container">
+        <p class="medium-text">MAKE YOUR ORDER</p>
+
+        <!-- Menu carousel -->
+        <?php
+        include_once('menu.php');
+
+        $result = getMenu();
+        if (!$result) {
+            echo 'Error: ' . mysqli_errno() . ' - ' . mysqli_error();
+        }
+
+        // Horizontal products scroller
+        echo "<div class=\"carousel\" data-flickity='{\"autoplay\": true, \"freeScroll\": true, \"contain\": true, \"prevNextButtons\": false, \"pageDots\": false}'>";
+        while ($pizza = $result->fetch_row()) {
+            echo "<div class=\"product-container\">
+                    <img class=\"product-img\" src=\"$pizza[4]\" alt=\"$pizza[1]\">
+                    <p class=\"product-name\">$pizza[1]</p>
+                    <p class=\"small-text product-price\">$pizza[3]€</p>
+                </div>";
+        }
+        echo "</div>";
+        ?>
+
+        <!-- Cart -->
+        <div id="cart-total-container">
+            <form id="order-form" method="post" action="order.php">
+                <h4 id="total-price">0</h4>
+                <label for="address">What's your address ?</label>
+                <input type="text" name="address" value=""/>
+                <input id="submit-button" type="submit" name="order" onclick="saveMap()" value="ORDER"/>
+            </form>
+        </div>
+    </div>
+</section>
+
+
+
+<!-- Order section -->
+<section id="order">
+        <!-- Menu carousel -->
             <p class="medium-text">MAKE YOUR ORDER</p>
 
             <div class="pizza-menu-container">
                 <?php
+                include_once("menu.php");
 
-                $menu = getPizzaMenu($connect);
-                //stampa delle pizze = ok
+                $connection = getMenu();
+                // Stampa delle pizze = ok
                 $i = 0;
-                while ($row = $menu->fetch_assoc()) {
+                while ($row = $connection->fetch_assoc()) {
                     ?>
-
                     <!-- codice da modificare-->
                     <div class="pizza-menu-element">
                         <img class="pizza-menu-img" src="<?php echo $row["img_dir"]; ?>"/><br>
-
                         <div class="pizza-menu-info">
-
                             <h4 class="pizza-menu-name" name="name"><?php echo $row["name"]; ?></h4>
-
                             <h4 class="pizza-menu-descript" name="description"><?php echo $row["description"]; ?></h4>
-
-                            <h4 id="price-currency">$</h4><h4 id="<?php echo $row["id"] ?>_price"
-                                                              name="price"><?php echo number_format($row["price"], 2); ?></h4>
-
+                            <h4 id="price-currency">$</h4><h4 id="<?php echo $row["id"] ?>_price" name="price"><?php echo number_format($row["price"], 2); ?></h4>
                             <h4 type="text" id="<?php echo $row["id"] ?>_quantity">0</h4> <!--- quantità della pizza-->
-
                             <div class="pizza-menu-buttons">
-
-
-                                <button class="remove-button"
-                                        onclick="removeOne('<?php echo $row["id"] . "_quantity"; ?>')">
-                                    Remove One
-                                </button>
-
-                                <button class="add-button" onclick="addOne('<?php echo $row["id"] . "_quantity"; ?>')">
-                                    Add One
-                                </button>
-
+                                <button class="remove-button" onclick="removeOne('<?php echo $row["id"] . "_quantity"; ?>')">Remove One</button>
+                                <button class="add-button" onclick="addOne('<?php echo $row["id"] . "_quantity"; ?>')">Add One</button>
                             </div>
-
                         </div>
-
-
                     </div>
-
-
                     <?php
                     $i++;
                 }
-
                 ?>
 
             </div>
 
-            <!-- carrello-->
+            <!-- Cart -->
             <div id="cart-total-container">
+                <form id="order-form" method="post" action="order.php">
+                    <h4 id="total-price">0</h4>
+                    <label for="address">What's your address ?</label>
+                    <input type="text" name="address" value=""/>
 
+                    <!-- da modificare -->
+                    <label for="address">Choose payment type</label>
+                    <div id="payment-container">
+                        <input type="radio" name="payment" value="CARD"/>
+                        <input type="radio" name="cash" value="Cash"/>
+                    </div>
+
+                    <input id="submit-button" type="submit" name="order" onclick="saveMap()" value="ORDER"/>
+                </form>
             </div>
+<section/>
 
-            <form id="order-form" method="post" action="order.php">
-                <h4 id="total-price">0</h4>
-
-                <label for="address">What's your address ?</label>
-                <input type="text" name="address" value=""/>
-
-                <!-- da modificare -->
-                <label for="address">Choose payment type</label>
-                <div id="payment-container">
-                    <!-- to do - aggiungere i controlli sui radio button -->
-                    <input type="radio" name="payment" value="CARD"/>
-                    <input type="radio" name="payment" value="CASH"/>
-                </div>
-
-                <input id="submit-button" type="submit" name="order" onclick="saveMap()" value="ORDER"/>
-            </form>
-
-
-            <button onclick="location.href='index.php'">Back to Home</button>
+<script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+<script src="js/orderHandler.js"></script>
 </body>
-<script type="text/javascript" src="js/orderHandler.js"></script>
-</html>
-
 </html>

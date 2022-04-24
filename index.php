@@ -1,12 +1,16 @@
 <?php
+include_once ("pizza_menu.php");
+
 session_start();
 
 // Estabilishing a connection with the DB "sql103.epizy.com", "epiz_31487448", "wScbLHkHAx", "epiz_31487448_pizzeria"
-$connection = new mysqli ("localhost", "root", "", "pizzeriagiotto");
+$connection = getMysqli() or die("Database non trovato");
 
-$_SESSION['connection']=$connection;
+// Registration check
+if (isset($_POST['name']) && isset($_POST['surname']) && isset($_POST['phone'])
+    && isset($_POST['user_email']) && isset($_POST['password'])) {
 
-if (isset($_POST['name']) && isset($_POST['surname']) && isset($_POST['phone']) && isset($_POST['user_email']) && isset($_POST['password'])) { // Registration check
+
     // Checking for DB registration errors
     $name = $_POST['name'];
     $surname = $_POST['surname'];
@@ -24,23 +28,32 @@ if (isset($_POST['name']) && isset($_POST['surname']) && isset($_POST['phone']) 
     } else {
         $query = "INSERT INTO Users (name, surname, tel, mail, password) VALUES('$name','$surname','$phone','$email','$password')";
         $connection->query($query);
+
+        //richiedo l'id della persona appena registata e lo salvo nell'array "$_SESSION"
+        $_SESSION["id"]=getIdUser($connection,$name);
+
         echo '<script type="text/javascript"> alert("User has been registered!"); window.location.href = "order.php";</script>';
     }
 
     $result->close();
     $connection->close();
-} elseif (isset($_POST['user_email']) && isset($_POST['password'])) {  // Login check
+
+}
+elseif (isset($_POST['user_email']) && isset($_POST['password'])) {  // Login check
+
     // Checking if user already exists
     $query = "SELECT * FROM Users WHERE mail = '{$_POST['user_email']}'";
     // Query result saving
     $result = $connection->query($query);
-    // Array containing all the elements of the tupla
+    // Associtive array containing all the elements of the tupla
     $result = $result->fetch_assoc();
-
     // Checking for user presence in DB
     if (isset($result['mail'])) {
         // Comparing crypted password with inserted password
         if (password_verify($_POST['password'], $result['password'])) {
+            //richiedo l'id della persona appena registata e lo salvo nell'array "$_SESSION"
+            $_SESSION["id"]=getIdUser($connection,$result["mail"]);
+
             header("location: order.php"); // Redirecting to 'order' file
         } else {
             echo '<script type="text/javascript"> alert("Wrong password!"); window.location.href = "index.php";</script>';
@@ -48,6 +61,8 @@ if (isset($_POST['name']) && isset($_POST['surname']) && isset($_POST['phone']) 
     } else {
         echo '<script type="text/javascript"> alert("User not registered!"); window.location.href = "index.php";</script>';
     }
+    $result->close();
+    $connection->close();
 
     $_POST = array();
 } else {
@@ -131,14 +146,7 @@ if (isset($_POST['name']) && isset($_POST['surname']) && isset($_POST['phone']) 
     <div class="content">
         <p class="medium-text">A large choice of flavors</p>
         <?php
-        include_once('pizza_menu.php');
-
-        $result = getPizzaMenu();
-
-        if (!$result) {
-            echo 'Error: ' . mysqli_errno() . ' - ' . mysqli_error();
-        }
-
+        $result = getPizzaMenu($connection);
         // Horizontal scroller pizzas creation
         echo "<div class=\"carousel\" data-flickity='{\"autoplay\": true, \"freeScroll\": true, \"contain\": true, \"prevNextButtons\": false, \"pageDots\": false}'>";
         while ($pizza = $result->fetch_row()) {

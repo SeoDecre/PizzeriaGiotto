@@ -1,11 +1,13 @@
 <?php
+include_once ("menu.php");
 session_start();
 
 // Establishing a connection with the DB
-$connection = new mysqli ();
+$connection =getMysqli();
 $errorText = "";
 
 if (isset($_POST['name']) && isset($_POST['surname']) && isset($_POST['phone']) && isset($_POST['email']) && isset($_POST['password'])) {
+
     // Checking for registration errors
     $name = $_POST['name'];
     $surname = $_POST['surname'];
@@ -23,7 +25,9 @@ if (isset($_POST['name']) && isset($_POST['surname']) && isset($_POST['phone']) 
     } else {
         $query = "INSERT INTO Users (name, surname, tel, email, password) VALUES('$name', '$surname', '$phone', '$email', '$password')";
         $connection->query($query);
-        $_SESSION['id'] = $email;
+        $_SESSION['id'] = $result["id"];
+
+        $_SESSION['email'] = $result['email'];
         // Server should keep session data for at least 1 week
         ini_set('session.gc_maxlifetime', 3600 * 24 * 7);
         // Each client should remember their session id for exactly 1 week

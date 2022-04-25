@@ -1,5 +1,4 @@
 <?php
-include_once("connection.php");
 include_once ("menu.php");
 session_start();
 
@@ -24,7 +23,7 @@ if (isset($_POST["order"])) {
     $delivery_address = $_POST["address"];
 
     // Query for order adding
-    $addOrder = "INSERT INTO Orders (amount, delivery_time, delivery_address, FK_users) VALUES ('$amount', '$delivery_time', '$delivery_address', '$userId')";
+    $addOrder = "INSERT INTO Orders (dollar_amount, delivery_time, delivery_address, FK_users) VALUES ('$amount', '$delivery_time', '$delivery_address', '$userId')";
     $connect->query($addOrder);
 
     // Getting the order id
@@ -32,7 +31,7 @@ if (isset($_POST["order"])) {
 
     // Scrolling the ordered products list to get each product data and add them in the "Order_Products" table
     // Each product gets associated to the actual order
-    $query = "INSERT INTO Orders_Products (FK_orders, FK_products,quantity) VALUES";
+    $query = "INSERT INTO Orders_Products (FK_orders, FK_products,amount) VALUES";
     for ($i = 0; $i < sizeof($orderedProductsList); $i++) {
         $pizzaId = $orderedProductsList[$i][0];
         $productsAmount = $orderedProductsList[$i][1];
@@ -75,7 +74,7 @@ if (isset($_POST["order"])) {
                 <img class="product-img" src="<?php echo $row["img_dir"]; ?>" alt="<?php echo $row["name"]; ?>">
                 <p class="product-name"><?php echo $row["name"]; ?></p>
                 <p class="small-text product-description"><?php echo $row["description"]; ?></p>
-                <p class="small-text product-price" id="<?php echo $row["id"] ?>_price"><?php echo number_format($row["price"], 2); ?>$</p>
+                <p class="small-text product-price" id="<?php echo $row["id"] ?>-price"><?php echo number_format($row["price"], 2); ?>$</p>
                 <p class="small-text product-description" id="<?php echo $row["id"] ?>-amount">0</p>
                 <div class="pizza-menu-buttons">
                     <button class="remove-button" onclick="removeOne('<?php echo $row["id"] . "-amount"; ?>')">Remove One</button>
@@ -92,7 +91,7 @@ if (isset($_POST["order"])) {
             <form id="order-form" method="post" action="order.php">
                 <h4 id="total-price">0</h4>
                 <label for="address">What's your address ?</label>
-                <input type="text" name="address" value=""/>
+                <input type="text" name="address" value="" required/>
                 <input id="submit-button" type="submit" name="order" onclick="saveMap()" value="ORDER"/>
             </form>
         </div>

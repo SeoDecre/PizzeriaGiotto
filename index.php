@@ -6,7 +6,7 @@ session_start();
 $connection = getMysqli() or die("Database not found");
 
 if (isset($_POST['order-button'])) {
-    if (isset($_SESSION['id'])) {
+    if (isset($_SESSION['email'])) {
         header("location: order.php");
     } else {
         header("location: login.php");

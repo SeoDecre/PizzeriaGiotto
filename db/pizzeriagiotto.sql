@@ -40,7 +40,18 @@ CREATE TABLE Orders_Products (
     FOREIGN KEY (FK_products) REFERENCES Products(id)
 );
 
-INSERT INTO Products (name, description, price, img_dir) VALUES
+INSERT INTO Users (name, surname, tel, email, password) VALUES
+("Gino", "Rossi", "3242344324", "ginorossi95@gmail.com", "abcd1234"),
+("Pietro", "Verdi", "2142451422", "pietroverdi@gmail.com", "abcd1234"),
+("Fabio", "Bianchi", "4214541234", "fabiobianchi@gmail.com", "abcd1234");
+
+INSERT INTO Orders (dollar_amount, delivery_time, delivery_address, FK_users) VALUES
+(30.50, "2020-01-01 15:10:10", "via Roma 65, Livorno", 1),
+(20.50, "2020-01-01 15:10:10", "via Rossi 65, Firenze", 1),
+(1.00, "2020-01-01 15:10:10", "via Roma 65, Livorno", 1),
+(10.00, "2020-01-01 15:10:10", "via Verdi 65, Pisa", 2);
+
+INSERT INTO Products (name, description, price,img_dir) VALUES
 ( "Margherita", "Tomato, mozzarella, basil", 10.00, "resources/products/margherita.png"),
 ( "Vesuvio", "Tomato, mozzarella, basil", 7.00, "resources/products/vesuvio.png"),
 ( "Bianca", "Pomodoro, mascarpone, crudo", 6.00, "resources/products/bianca.png"),

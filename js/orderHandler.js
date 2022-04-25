@@ -4,7 +4,7 @@ let pizzaContainer = new Map();
 //viene richiamato per riprendere l'id della pizza a partire dell'identificativo del counter
 //es 11_counter --> id pizza : 11
 function getPizzaId(idcounter) {
-    return idcounter.split("_")[0];
+    return idcounter.split("-")[0];
 }
 
 //utilizzata per rimuovere una pizza dall'ordine
@@ -16,10 +16,8 @@ function removeOne(idcounter) {
     if (value > 0) {
         document.getElementById(idcounter).innerHTML = parseInt(document.getElementById(idcounter).innerHTML, 10) - 1;
         pizzaContainer.set(pizzaId, document.getElementById(idcounter).innerHTML); //decrementa il quantitativo la pizza all'interno dell'hashmap
+        calcTotPrice(pizzaId, false);
     }
-
-    calcTotPrice(idcounter, false);
-
 }
 
 //utilizzata per aggiungere una pizza dall'ordine
@@ -35,15 +33,14 @@ function addOne(idcounter) {
 
         pizzaContainer.set(pizzaId, document.getElementById(idcounter).innerHTML); //aggiunge e incrementa il quantitativo la pizza all'interno dell'hashmap
     }
-    calcTotPrice(idcounter, true);
+    calcTotPrice(pizzaId, true);
 }
 
 //utilizzata per aggionare il prezzo dell'ordine e per memorizzare il numero delle pizze che si vuol
 //richiedere nell'ordine
 
-function calcTotPrice(idcounter, operation) {
-    //salva l'id della pizza
-    let pizzaId = getPizzaId(idcounter);
+function calcTotPrice(pizzaId, operation) {
+
 
     let pizza_price = parseFloat(parseFloat(document.getElementById(pizzaId + "-price").innerHTML).toFixed(2));
 

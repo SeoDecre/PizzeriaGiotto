@@ -1,8 +1,10 @@
 <?php
+include_once ("menu.php");
+
 session_start();
 
 // Establishing a connection with the DB
-$connection = new mysqli ();
+$connection = getMysqli();
 $errorText = "";
 
 if (isset($_POST['email']) && isset($_POST['password'])) {
@@ -18,12 +20,18 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
         // Comparing hashed password with inserted password
         if (password_verify($_POST['password'], $result['password'])) {
             if (isset($_POST['remember'])) {
-                $_SESSION['id'] = $result['email'];
+
+                $_SESSION['email'] = $result['email'];
+
                 // Server should keep session data for at least 1 week
                 ini_set('session.gc_maxlifetime', 3600 * 24 * 7);
                 // Each client should remember their session id for exactly 1 week
                 session_set_cookie_params(3600 * 24 * 7);
             }
+
+            $_SESSION['id'] = $result['id'];
+
+
             header("location: order.php"); // Redirecting to order
         } else {
             $errorText = "Password is wrong";

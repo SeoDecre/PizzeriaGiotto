@@ -1,71 +1,19 @@
 <?php
-include_once ("pizza_menu.php");
-
+include_once ("menu.php");
 session_start();
 
-// Estabilishing a connection with the DB "sql103.epizy.com", "epiz_31487448", "wScbLHkHAx", "epiz_31487448_pizzeria"
-$connection = getMysqli() or die("Database non trovato");
+// Establishing a connection with the DB
+$connection = getMysqli() or die("Database not found");
 
-// Registration check
-if (isset($_POST['name']) && isset($_POST['surname']) && isset($_POST['phone'])
-    && isset($_POST['user_email']) && isset($_POST['password'])) {
-
-
-    // Checking for DB registration errors
-    $name = $_POST['name'];
-    $surname = $_POST['surname'];
-    $phone = $_POST['phone'];
-    $email = $_POST['user_email'];
-    $password = password_hash($_POST['password'], PASSWORD_BCRYPT); // Password encryption
-
-    // Checking if user already exists
-    $query = "SELECT * FROM Users WHERE mail = '$email'";
-    $result = $connection->query($query);
-
-    if ($result !== false && $result->num_rows > 0) {
-        $_POST = [];
-        echo '<script type="text/javascript"> alert("User already exists"); window.location.href = "index.php";</script>';
+if (isset($_POST['order-button'])) {
+    if (isset($_SESSION['id'])) {
+        header("location: order.php");
     } else {
-        $query = "INSERT INTO Users (name, surname, tel, mail, password) VALUES('$name','$surname','$phone','$email','$password')";
-        $connection->query($query);
-
-        //richiedo l'id della persona appena registata e lo salvo nell'array "$_SESSION"
-        $_SESSION["id"]=getIdUser($connection,$name);
-
-        echo '<script type="text/javascript"> alert("User has been registered!"); window.location.href = "order.php";</script>';
+        header("location: login.php");
     }
-
-    $result->close();
-    $connection->close();
-
 }
-elseif (isset($_POST['user_email']) && isset($_POST['password'])) {  // Login check
 
-    // Checking if user already exists
-    $query = "SELECT * FROM Users WHERE mail = '{$_POST['user_email']}'";
-    // Query result saving
-    $result = $connection->query($query);
-    // Associtive array containing all the elements of the tupla
-    $result = $result->fetch_assoc();
-    // Checking for user presence in DB
-    if (isset($result['mail'])) {
-        // Comparing crypted password with inserted password
-        if (password_verify($_POST['password'], $result['password'])) {
-            //richiedo l'id della persona appena registata e lo salvo nell'array "$_SESSION"
-            $_SESSION["id"]=getIdUser($connection,$result["mail"]);
-
-            header("location: order.php"); // Redirecting to 'order' file
-        } else {
-            echo '<script type="text/javascript"> alert("Wrong password!"); window.location.href = "index.php";</script>';
-        }
-    } else {
-        echo '<script type="text/javascript"> alert("User not registered!"); window.location.href = "index.php";</script>';
-    }
-    $result->close();
-    $connection->close();
-
-    $_POST = array();
-} else {
+$_POST = array();
 ?>
 
 <html lang="en">
@@ -77,68 +25,15 @@ elseif (isset($_POST['user_email']) && isset($_POST['password'])) {  // Login ch
 </head>
 
 <body>
-<!-- Login modal -->
-<div id="login-form" class="modal">
-    <dialog open>
-        <form method="post" action="index.php">
-            <label class="form-title">Login</label>
-            <div class="content-field">
-                <label class="form-field-name">Email:</label> <br>
-                <input class="form-input" type="email" name="user_email" required> <br>
-            </div>
-            <div class="content-field">
-                <label class="form-field-name">Password:</label> <br>
-                <input class="form-input" type="password" name="password" required> <br>
-            </div>
-            <div class="content-field">
-                <input class="form-button button" type="submit" value="SIGN IN"> <br>
-                <span class="alternative-text">Not a member? <a id="register-linker">Sign up</a></span>
-            </div>
-        </form>
-    </dialog>
-</div>
-
-<!-- Registration modal -->
-<div id="register-form" class="modal login-modal">
-    <dialog class="dialog" open>
-        <form method="post" action="index.php">
-            <label class="form-title">Sign up</label>
-            <div class="content-field">
-                <label class="form-field-name">Name:</label> <br>
-                <input class="form-input" type="text" name="name" required> <br>
-            </div>
-            <div class="content-field">
-                <label class="form-field-name">Surname:</label> <br>
-                <input class="form-input" type="text" name="surname" required> <br>
-            </div>
-            <div class="content-field">
-                <label class="form-field-name">Phone number:</label> <br>
-                <input class="form-input" type="tel" name="phone" required> <br>
-            </div>
-            <div class="content-field">
-                <label class="form-field-name">Email:</label> <br>
-                <input class="form-input" type="email" name="user_email" required> <br>
-            </div>
-            <div class="content-field">
-                <label class="form-field-name">Password:</label> <br>
-                <input class="form-input" type="password" name="password" required> <br>
-            </div>
-            <div class="content-field">
-                <input class="form-button button" type="submit" value="SIGN UP"> <br>
-                <a class="alternative-text" id="login-linker">Login</a>
-            </div>
-        </form>
-    </dialog>
-</div>
-
 <!-- Home section -->
 <section id="home">
     <div class="content">
         <p class="title">Giotto's Pizzeria</p>
         <p class="small-text">The roundest pizza on the market.</p>
     </div>
-    <!-- onclick="document.getElementById('login-form').style.visibility='visible'" -->
-    <button id="order-button" class="order button">ORDER</button>
+    <form action="index.php" method="post" class="order">
+        <input type="submit" id="order-button" class="button" name="order-button" value="ORDER"/>
+    </form>
 </section>
 
 <!-- Menu section -->
@@ -146,14 +41,15 @@ elseif (isset($_POST['user_email']) && isset($_POST['password'])) {  // Login ch
     <div class="content">
         <p class="medium-text">A large choice of flavors</p>
         <?php
-        $result = getPizzaMenu($connection);
-        // Horizontal scroller pizzas creation
+        $result = getMenu();
+
+        // Horizontal products scroller
         echo "<div class=\"carousel\" data-flickity='{\"autoplay\": true, \"freeScroll\": true, \"contain\": true, \"prevNextButtons\": false, \"pageDots\": false}'>";
-        while ($pizza = $result->fetch_row()) {
+        while ($product = $result->fetch_row()) {
             echo "<div class=\"product-container\">
-                    <img class=\"product-img\" src=\"$pizza[4]\" alt=\"$pizza[1]\">
-                    <p class=\"product-name\">$pizza[1]</p>
-                    <p class=\"small-text product-price\">$pizza[3]€</p>
+                    <img class=\"product-img\" src=\"$product[4]\" alt=\"$product[1]\">
+                    <p class=\"product-name\">$product[1]</p>
+                    <p class=\"small-text product-price\">$product[3]€</p>
                 </div>";
         }
         echo "</div>";
@@ -188,8 +84,5 @@ elseif (isset($_POST['user_email']) && isset($_POST['password'])) {  // Login ch
 </footer>
 
 <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
-<script src="js/modalHandler.js"></script>
-<script src="js/orderHandler.js"></script>
 </body>
 </html>
-<?php } ?>

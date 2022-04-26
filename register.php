@@ -1,17 +1,14 @@
 <?php
-include_once ("menu.php");
-session_start();
+include_once("menu.php");
 
-// Establishing a connection with the DB
-$connection =getMysqli();
+session_start();
+$connection = getMysqli(); // Establishing a connection with the DB
 $errorText = "";
 
 if (isset($_POST['name']) && isset($_POST['surname']) && isset($_POST['phone']) && isset($_POST['email']) && isset($_POST['password'])) {
-
-    // Checking for registration errors
     $name = $_POST['name'];
     $surname = $_POST['surname'];
-    $phone = $_POST['phone'];
+    $tel = $_POST['phone'];
     $email = $_POST['email'];
     $password = password_hash($_POST['password'], PASSWORD_BCRYPT); // Password hashing
 
@@ -23,20 +20,22 @@ if (isset($_POST['name']) && isset($_POST['surname']) && isset($_POST['phone']) 
         $_POST = [];
         $errorText = "A user with this email already exists!";
     } else {
-        $query = "INSERT INTO Users (name, surname, tel, email, password) VALUES('$name', '$surname', '$phone', '$email', '$password')";
+        $query = "INSERT INTO Users (name, surname, tel, email, password) VALUES('$name', '$surname', '$tel', '$email', '$password')";
         $connection->query($query);
         $_SESSION['id'] = $result["id"];
-
         $_SESSION['email'] = $result['email'];
-        // Server should keep session data for at least 1 week
+
+        // Server should keep session data for 1 week
         ini_set('session.gc_maxlifetime', 3600 * 24 * 7);
-        // Each client should remember their session id for exactly 1 week
+        // Client should remember its session id 1 week
         session_set_cookie_params(3600 * 24 * 7);
+
         header("location: order.php"); // Redirecting to order
     }
 
     $result->close();
     $connection->close();
+    $_POST = array();
 }
 ?>
 
@@ -48,7 +47,6 @@ if (isset($_POST['name']) && isset($_POST['surname']) && isset($_POST['phone']) 
 </head>
 
 <body>
-
 <!-- Login modal -->
 <section id="register">
     <div class="container">

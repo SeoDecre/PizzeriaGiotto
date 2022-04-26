@@ -29,7 +29,7 @@ $_POST = array();
 <section id="home">
     <div class="content">
         <p class="title">Giotto's Pizzeria</p>
-        <p class="small-text">The roundest pizza on the market.</p>
+        <p class="small-text">The roundest pizza on the market</p>
     </div>
     <form action="index.php" method="post" class="order">
         <input type="submit" id="order-button" class="button" name="order-button" value="ORDER"/>

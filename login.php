@@ -2,27 +2,21 @@
 include_once ("menu.php");
 
 session_start();
-
-// Establishing a connection with the DB
-$connection = getMysqli();
+$connection = getMysqli(); // Establishing a connection with the DB
 $errorText = "";
 
 if (isset($_POST['email']) && isset($_POST['password'])) {
     // Checking if user exists
     $query = "SELECT * FROM Users WHERE email = '{$_POST['email']}'";
-    // Saving the query result
+    // Saving and fetching the query result
     $result = $connection->query($query);
-    // Array containing all the elements of the tupla
     $result = $result->fetch_assoc();
 
-    // Checking for user presence in DB
     if (isset($result['email'])) {
-        // Comparing hashed password with inserted password
+        // Comparing inserted password with hashed password
         if (password_verify($_POST['password'], $result['password'])) {
             if (isset($_POST['remember'])) {
-
                 $_SESSION['email'] = $result['email'];
-
                 // Server should keep session data for at least 1 week
                 ini_set('session.gc_maxlifetime', 3600 * 24 * 7);
                 // Each client should remember their session id for exactly 1 week
@@ -30,8 +24,6 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
             }
 
             $_SESSION['id'] = $result['id'];
-
-
             header("location: order.php"); // Redirecting to order
         } else {
             $errorText = "Password is wrong";
@@ -40,6 +32,8 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
         $errorText = "User not registered";
     }
 
+    // $result->close();
+    $connection->close();
     $_POST = array();
 }
 ?>
@@ -52,8 +46,7 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
 </head>
 
 <body>
-
-<!-- Login modal -->
+<!-- Login section -->
 <section id="login">
     <div class="container">
         <p class="title">Login</p>
@@ -76,6 +69,5 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
         </form>
     </div>
 </section>
-<script src="js/modalHandler.js"></script>
 </body>
 </html>

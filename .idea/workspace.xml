@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="52876b0e-3387-4b59-ad01-823c1f9ac9e1" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/PizzeriaGiotto.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db/pizzeriagiotto.sql" beforeDir="false" afterPath="$PROJECT_DIR$/db/pizzeriagiotto.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/orderHandler.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/orderHandler.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/login.php" beforeDir="false" afterPath="$PROJECT_DIR$/login.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/menu.php" beforeDir="false" afterPath="$PROJECT_DIR$/menu.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order.php" beforeDir="false" afterPath="$PROJECT_DIR$/order.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/register.php" beforeDir="false" afterPath="$PROJECT_DIR$/register.php" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings">
+    <execution />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+        <option value="CSS File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="27KqHLeMhgtMFfLlkprB9dI5wiW" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="list.type.of.created.stylesheet" value="CSS" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.General" />
+    <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\xampp\htdocs\PizzeriaGiotto\js" />
+      <recent name="C:\xampp\htdocs\PizzeriaGiotto\resources" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\xampp\htdocs\PizzeriaGiotto\resources" />
+      <recent name="C:\xampp\htdocs\PizzeriaGiotto" />
+      <recent name="C:\xampp\htdocs\PizzeriaGiotto\js" />
+      <recent name="C:\xampp\htdocs\PizzeriaGiotto\style" />
+      <recent name="C:\xampp\htdocs\PizzeriaGiotto\resources\products" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="52876b0e-3387-4b59-ad01-823c1f9ac9e1" name="Default Changelist" comment="" />
+      <created>1649079035972</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1649079035972</updated>
+      <workItem from="1649079037589" duration="8161000" />
+      <workItem from="1649160705516" duration="7286000" />
+      <workItem from="1649426106408" duration="1266000" />
+      <workItem from="1649501848666" duration="28264000" />
+      <workItem from="1649582181215" duration="9773000" />
+      <workItem from="1649635954840" duration="171000" />
+      <workItem from="1649682751390" duration="15067000" />
+      <workItem from="1649771443621" duration="26000" />
+      <workItem from="1649789695497" duration="3011000" />
+      <workItem from="1649864811192" duration="11309000" />
+      <workItem from="1649929993266" duration="5531000" />
+      <workItem from="1650021582752" duration="4265000" />
+      <workItem from="1650381138523" duration="2567000" />
+      <workItem from="1650554520774" duration="12852000" />
+      <workItem from="1650649741031" duration="2032000" />
+      <workItem from="1650707598756" duration="13008000" />
+      <workItem from="1650797820024" duration="16217000" />
+      <workItem from="1650880590531" duration="4599000" />
+      <workItem from="1650890713983" duration="165000" />
+      <workItem from="1650890881213" duration="17605000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="679" y="71" width="588" height="897" key="#PHP" timestamp="1649085828664">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="679" y="71" width="588" height="897" key="#PHP/1920.0.1920.1040/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1649085828664" />
+    <state x="336" y="356" key="#SQL_Dialects" timestamp="1649582628676">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="336" y="356" key="#SQL_Dialects/1920.0.1920.1040/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1649582628676" />
+    <state x="400" y="370" key="#SQL_Resolution_Scopes" timestamp="1649612194830">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="400" y="370" key="#SQL_Resolution_Scopes/1920.0.1920.1040/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1649612194830" />
+    <state x="552" y="178" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1649713670042">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="552" y="178" key="#com.intellij.execution.impl.EditConfigurationsDialog/1920.0.1920.1040/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1649713670042" />
+    <state x="708" y="310" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1649688422695">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="708" y="310" key="#com.intellij.fileTypes.FileTypeChooser/1920.0.1920.1040/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1649688422695" />
+    <state x="585" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1649085673188">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="585" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/1920.0.1920.1040/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1649085673188" />
+    <state x="690" y="267" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1649086249786">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="690" y="267" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/1920.0.1920.1040/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1649086249786" />
+    <state x="627" y="298" key="EditFileWatcherDialog" timestamp="1649085563465">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="627" y="298" key="EditFileWatcherDialog/1920.0.1920.1040/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1649085563465" />
+    <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1650890877698">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="740" y="275" key="FileChooserDialogImpl/1920.0.1920.1040/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1650890877698" />
+    <state x="794" y="439" key="NewPhpFileDialog" timestamp="1649891095092">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="794" y="439" key="NewPhpFileDialog/1920.0.1920.1040/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1649891095092" />
+    <state x="414" y="160" key="SettingsEditor" timestamp="1650928344784">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="414" y="160" key="SettingsEditor/1920.0.1920.1040/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1650928344784" />
+    <state width="200" height="523" key="SqlResolveConfigurable" timestamp="1649612193808">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="200" height="523" key="SqlResolveConfigurable/1920.0.1920.1040/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1649612193808" />
+    <state x="616" y="240" key="run.anything.popup" timestamp="1650820870439">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="616" y="240" key="run.anything.popup/1920.0.1920.1040/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1650820870439" />
+    <state x="616" y="240" key="run.anything.popup/1920.0.1920.1040/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1650730964481" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1649623214507">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/1920.0.1920.1040/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1649623214507" />
+  </component>
+</project>

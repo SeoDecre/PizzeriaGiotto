@@ -1,96 +1,73 @@
-let totalprice = 0;
-let pizzaContainer = new Map();
+let priceAmount = 0;
+let productsCart = new Map();
 
-//viene richiamato per riprendere l'id della pizza a partire dell'identificativo del counter
-//es 11_counter --> id pizza : 11
-function getPizzaId(idcounter) {
-    return idcounter.split("-")[0];
+// Function used to get a product id number starting from its HTML id name
+function getProductId(idCounter) {
+    return idCounter.split("-")[0];
 }
 
-//utilizzata per rimuovere una pizza dall'ordine
-function removeOne(idcounter) {
-    // funziona solo con l'innerhtml
-    let value = parseInt(document.getElementById(idcounter).innerHTML, 10);
-    let pizzaId = getPizzaId(idcounter);
-
-    if (value > 0) {
-        document.getElementById(idcounter).innerHTML = parseInt(document.getElementById(idcounter).innerHTML, 10) - 1;
-        pizzaContainer.set(pizzaId, document.getElementById(idcounter).innerHTML); //decrementa il quantitativo la pizza all'interno dell'hashmap
-        calcTotPrice(pizzaId, false);
-    }
-}
-
-//utilizzata per aggiungere una pizza dall'ordine
-function addOne(idcounter) {
-
-    // funziona solo con il value
-    let value = parseInt(document.getElementById(idcounter).value, 10);
-
-    let pizzaId = getPizzaId(idcounter);
+// Function used to add a product to the cart
+function addOne(counterId) {
+    let value = parseInt(document.getElementById(counterId).value, 10);
+    let productId = getProductId(counterId);
 
     if (isNaN(value)) {
-        document.getElementById(idcounter).innerHTML = parseInt(document.getElementById(idcounter).innerHTML, 10) + 1;
-
-        pizzaContainer.set(pizzaId, document.getElementById(idcounter).innerHTML); //aggiunge e incrementa il quantitativo la pizza all'interno dell'hashmap
+        document.getElementById(counterId).innerHTML = parseInt(document.getElementById(idcounter).innerHTML, 10) + 1;
+        productsCart.set(productId, value); // Updating the amount in the hashmap
+        computeTotalPrice(productId, "add");
     }
-    calcTotPrice(pizzaId, true);
 }
 
-//utilizzata per aggionare il prezzo dell'ordine e per memorizzare il numero delle pizze che si vuol
-//richiedere nell'ordine
+// Function used to remove a product from the cart
+function removeOne(counterId) {
+    let value = parseInt(document.getElementById(counterId).innerHTML, 10);
+    let productId = getProductId(counterId);
 
-function calcTotPrice(pizzaId, operation) {
+    if (value > 0) {
+        document.getElementById(counterId).innerHTML = parseInt(document.getElementById(idcounter).innerHTML, 10) - 1;
+        productsCart.set(productId, value); // Updating the amount in the hashmap
+        computeTotalPrice(productId, "remove");
+    }
+}
 
+// Function used to update the order price amount
+function computeTotalPrice(productId, operation) {
+    let productPrice = parseFloat(parseFloat(document.getElementById(productId + "-price").innerHTML).toFixed(2));
 
-    let pizza_price = parseFloat(parseFloat(document.getElementById(pizzaId + "-price").innerHTML).toFixed(2));
-
-    if (operation) {// se va aggiunta una pizza
-        totalprice += pizza_price;
-        parseFloat(totalprice).toFixed(2);
-    } else {// se va rimossa una pizza
-
-        totalprice -= pizza_price;
-        parseFloat(totalprice).toFixed(2);
+    if (operation === "add") {
+        priceAmount += productPrice;
+        parseFloat(priceAmount).toFixed(2);
+    } else if (operation === "remove") {// se va rimossa una pizza
+        priceAmount -= productPrice;
+        parseFloat(priceAmount).toFixed(2);
     }
 
     document.getElementById("total-price").innerHTML = parseFloat(totalprice).toFixed(2);
-
 }
 
-// utilizzata per inoltrare nella richiesta POST anche il prezzo totale e l'array delle pizze selezionate
-
+// Function used to send the POST order request
 function saveMap() {
-
-    //invio dei dati con la generazione del tag input
-    //richiamo il form dal DOM della pagina
+    // Taking the form from the page DOM
     let form = document.getElementById("order-form");
 
-    //Creo il tag 'input' contenente il valore della spesa totale
+    // Input tag creation, it contains the spent amount
     let totalPrice = document.createElement('input');
 
-    //Aggiungo l'attributo 'name' al tag 'input'
     totalPrice.name = "totalPrice";
-    //rendo nascosto il tag
     totalPrice.type = "hidden";
 
-    //memorizzo la spesa totale dell'ordine
+    // Storing the spent amount in the order
     totalPrice.value = document.getElementById("total-price").innerHTML;
 
-
-    //Creo il tag 'input' contenente il json dell'hashmap contente tutte le pizze inserite
-    //all'interno dell'ordine
+    // Input tag creation, it contains the json hashmap with all the ordered products
     let pizzaListTag = document.createElement('input');
 
-    //Aggiungo l'attributo 'name' al tag 'input'
     pizzaListTag.name = "pizzaList";
-    //rendo nascosto il tag
     pizzaListTag.type = "hidden";
 
-
-    // memorizzo l'hashmap all'interno del tag
-    pizzaListTag.value = JSON.stringify(Array.from(pizzaContainer.entries()));
+    // Tag hashmap memorization
+    pizzaListTag.value = JSON.stringify(Array.from(productsCart.entries()));
 
     form.appendChild(totalPrice);
     form.appendChild(pizzaListTag);
-
 }

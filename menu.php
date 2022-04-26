@@ -8,10 +8,8 @@ function getMenu() {
     return $mysqli->query($query);
 }
 
-//utilizzato per ricercare l'id dell'utente a partire dal nome oppure dalla sua email
-//$name può essere o il nome oppure l'email della persona di cui stiamo ricercando l'id
-
-function getIdOrder(mysqli $connection,string $timeStamp,string $idUser):string{
-    $result= $connection->query("SELECT * FROM Orders WHERE delivery_time = '$timeStamp' AND FK_users = '$idUser'");
-    return  $result->fetch_assoc()["id"];
+// Function used to search a specific user id
+function getIdOrder(mysqli $connection, string $timeStamp, string $idUser): string {
+    $result = $connection->query("SELECT * FROM Orders WHERE delivery_time = '$timeStamp' AND FK_users = '$idUser'");
+    return $result->fetch_assoc()["id"];
 }

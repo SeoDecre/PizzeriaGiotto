@@ -30,8 +30,8 @@ if (isset($_POST["order"])) {
     $idOrder = getIdOrder($connect, $delivery_time, $userId);
 
     // Scrolling the ordered products list to get each product data and add them in the "Order_Products" table
-    // Each product gets associated to the actual order
-    $query = "INSERT INTO Orders_Products (FK_orders, FK_products,amount) VALUES";
+    // Each product is associated with the actual order
+    $query = "INSERT INTO Orders_Products (FK_orders, FK_products, amount) VALUES ";
     for ($i = 0; $i < sizeof($orderedProductsList); $i++) {
         $pizzaId = $orderedProductsList[$i][0];
         $productsAmount = $orderedProductsList[$i][1];
@@ -45,7 +45,6 @@ if (isset($_POST["order"])) {
     // Sending the query to the server and inform the user
     $connect->query($query);
     echo '<script type="text/javascript"> alert("Your order has been sent!"); window.location.href = "index.php";</script>';
-
     $_POST = array();
 }
 ?>
@@ -67,7 +66,7 @@ if (isset($_POST["order"])) {
         <!-- Menu carousel -->
         <?php
         $connection = getMenu();
-        echo "<div class=\"carousel\" data-flickity='{\"autoplay\": true, \"freeScroll\": true, \"contain\": true, \"prevNextButtons\": false, \"pageDots\": false}'>";
+        echo "<div class=\"carousel\" data-flickity='{\"autoplay\": true, ...'>";
         while ($row = $connection->fetch_assoc()) {
             ?>
             <div class="product-container">
@@ -75,10 +74,10 @@ if (isset($_POST["order"])) {
                 <p class="product-name"><?php echo $row["name"]; ?></p>
                 <p class="small-text product-description"><?php echo $row["description"]; ?></p>
                 <p class="small-text product-price" id="<?php echo $row["id"] ?>-price"><?php echo number_format($row["price"], 2); ?>$</p>
-                <p class="small-text product-description" id="<?php echo $row["id"] ?>-amount">0</p>
                 <div class="pizza-menu-buttons">
-                    <button class="remove-button" onclick="removeOne('<?php echo $row["id"] . "-amount"; ?>')">Remove One</button>
-                    <button class="add-button" onclick="addOne('<?php echo $row["id"] . "-amount"; ?>')">Add One</button>
+                    <button class="operation-button" onclick="removeOne('<?php echo $row["id"] . "-amount"; ?>')">-</button>
+                    <p class="small-text product-description" id="<?php echo $row["id"] ?>-amount">0</p>
+                    <button class="operation-button" onclick="addOne('<?php echo $row["id"] . "-amount"; ?>')">+</button>
                 </div>
             </div>;
             <?php
